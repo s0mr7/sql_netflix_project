@@ -11,6 +11,8 @@ This project involves a comprehensive analysis of Netflix's movies and TV shows 
 - Explore and categorize content based on specific criteria and keywords.
 
 ## SCHEMA 
+```sql
+
  CREATE TABLE netflix_titles
 (
 	show_id	VARCHAR(5),
@@ -26,10 +28,11 @@ This project involves a comprehensive analysis of Netflix's movies and TV shows 
 	listed_in	VARCHAR(250),
 	description VARCHAR(550)
 );
-
+```
 ## Business problems and solutions 
 
 ### 1. Count the number of Movies vs TV Shows
+```sql
 select
     type,
     count(*)
@@ -58,13 +61,17 @@ SELECT
     rating AS most_frequent_rating
 FROM RankedRatings
 WHERE rank_1 = 1;
+```
 
 ### 3. List all movies released in a specific year (2019)
+```sql
 select *
 from netflix_titles
 where release_year = 2019;
+```
 
 ### 4. Find the top 5 countries with the most content on Netflix
+```sql
 SELECT
     TRIM(SUBSTRING_INDEX(
         SUBSTRING_INDEX(n.country, ',', numbers.n),
@@ -105,15 +112,19 @@ FROM
 WHERE
     STR_TO_DATE(date_added, '%M %e, %Y') >=
     DATE_SUB(CURRENT_DATE(), INTERVAL 5 YEAR);
+```
 
 ### 7. Find all the movies/TV shows by director 'Marcus Raboy'!
+```sql
 SELECT
     *
 FROM
     netflix_titles
 WHERE
     FIND_IN_SET('Marcus Raboy', TRIM(REPLACE(director, ',', ''))) > 0;
--- 8. List all TV shows with more than 5 seasons
+```
+### 8. List all TV shows with more than 5 seasons
+```sql
 SELECT
     *
 FROM
@@ -122,8 +133,10 @@ WHERE
     type = 'TV Show'
     AND
     CAST(SUBSTRING_INDEX(duration, ' ', 1) AS SIGNED) > 5;
--- 9.Find each year and the average numbers of content release in United States on netflix.
--- return top 5 year with highest avg content release!
+```
+
+### 9.Find each year and the average numbers of content release in United States on netflix & return top 5 year with highest avg content release!
+```sql
 SELECT
     country,
     release_year,
@@ -142,8 +155,10 @@ GROUP BY
 ORDER BY
     avg_release DESC
 LIMIT 5;
+```
 
 ### 10. List all movies that are documentaries
+```sql
 select *
 from netflix_titles
 where listed_in like '%Documentaries';
@@ -184,8 +199,10 @@ GROUP BY
 ORDER BY
     total_appearances DESC
 LIMIT 10;
+```
 
 ### 14. Categorize Content Based on the Presence of 'Kill' and 'Violence' Keywords
+```sql
 SELECT
     category,
     COUNT(*) AS content_count
@@ -198,6 +215,7 @@ FROM (
     FROM netflix_titles
 ) AS categorized_content
 GROUP BY category;
+```
 
 ## Findings and Conclusion
 
