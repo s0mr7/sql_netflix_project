@@ -162,19 +162,25 @@ LIMIT 5;
 select *
 from netflix_titles
 where listed_in like '%Documentaries';
+```
 
 ### 11. Find all content without a director
+```sql
 select *
 from netflix_titles
 where director is null;
+```
 
 ### 12. Find how many movies actor 'David Attenborough' appeared in last 10 years!
+```sql
 select *
 from netflix_titles
 where cast = 'avid Attenborough'
   and release_year > year(current_date) - 10;
+```
 
-### 13. Find the top 10 actors who have appeared in the highest number of movies produced in UnitedStates.
+### 13. Find the top 10 actors who have appeared in the highest number of movies produced in United States.
+```sql
 SELECT
     TRIM(SUBSTRING_INDEX(
         SUBSTRING_INDEX(n.cast, ',', numbers.n),
