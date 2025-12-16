@@ -38,8 +38,9 @@ select
     count(*)
 from netflix_titles
 group by 1;
-
+```
 ### 2. Find the most common rating for movies and TV shows
+```sql
 WITH RatingCounts AS (
     SELECT
         type,
@@ -94,7 +95,9 @@ GROUP BY
 ORDER BY
     total_content DESC
 LIMIT 5;
--- 5. Identify the longest movie
+```
+### 5. Identify the longest movie
+```sql
 SELECT
     *
 FROM
@@ -103,8 +106,9 @@ WHERE
     type = 'Movie'
 ORDER BY
     CAST(SUBSTRING_INDEX(duration, ' ', 1) AS UNSIGNED) DESC;
-
+```
 ### 6. Find content added in the last 5 years
+```sql
 SELECT
     *
 FROM
